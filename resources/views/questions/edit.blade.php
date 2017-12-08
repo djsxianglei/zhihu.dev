@@ -4,12 +4,12 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">发布问题</div>
+                    <div class="panel-heading">编辑问题</div>
                     <div class="panel-body">
-                        <form method="post" action="{{ route('questions.store') }}">
+                        <form method="post" action="{{ route('questions.update',['id'=>$question->id]) }}">
                             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                 <label for="title">标题</label>
-                                <input type="text" class="form-control" name="title" value="{{ old('title') }}" id="title" placeholder="请输入标题" autofocus>
+                                <input type="text" class="form-control" name="title" value="{{ old('title',$question->title) }}" id="title" placeholder="请输入标题" autofocus>
                                 @if ($errors->has('title'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('title') }}</strong>
@@ -19,13 +19,15 @@
                             <div class="form-group">
                                 <label class="title">选择相关话题</label>
                                 <select class="select2 form-control" name="topics[]" multiple>
-
+                                    @foreach($question->topics as $topic)
+                                        <option value="{{ $topic->id }}" selected> {{ $topic->name }}</option>
+                                        @endforeach
                                 </select>
                             </div>
                             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
                                 <label for="body">内容</label>
                                 <!-- 编辑器容器 -->
-                                <script id="container" name="body" type="text/plain">{!! old('body') !!}</script>
+                                <script id="container" name="body" type="text/plain">{!! old('body',$question->body) !!}</script>
                                 @if ($errors->has('body'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('body') }}</strong>
@@ -33,6 +35,7 @@
                                 @endif
                             </div>
                             {{ csrf_field() }}
+                            {{ method_field('put') }}
                             <button type="submit" class="btn btn-success pull-right">提交</button>
                         </form>
                     </div>
