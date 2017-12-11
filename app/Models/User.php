@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Mail;
 use Naux\Mail\SendCloudTemplate;
 
+/**
+ * Class User
+ * @package App\Models
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -30,10 +34,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * @param Model $model
+     * @return bool
+     */
     public function owns(Model $model)
     {
         return $this->id == $model->user_id;
     }
+
+    /**
+     * @param string $token
+     */
     public function sendPasswordResetNotification($token)
     {
         $data = ['url'=>url('password/reset',$token)];
@@ -43,5 +55,13 @@ class User extends Authenticatable
             $message->from('sweet@leadnew.cn', 'djs');
             $message->to($this->email);
         });
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
 }

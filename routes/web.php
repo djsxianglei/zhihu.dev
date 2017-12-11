@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','QuestionController@index');
 
 Auth::routes();
 
@@ -21,4 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('email/verify/{token}',['as'=> 'email.verify' , 'uses' => 'EmailController@verify']);
 
+
+
+Route::post('questions/{question}/answer','AnswerController@store')->name('questions.answer');
 Route::resource('questions','QuestionController');

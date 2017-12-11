@@ -18,7 +18,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="title">选择相关话题</label>
-                                <select class="select2 form-control" name="topics[]" multiple>
+                                <select class="select2 form-control" name="topics[]" multiple required>
 
                                 </select>
                             </div>

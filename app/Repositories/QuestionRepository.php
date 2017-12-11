@@ -22,9 +22,9 @@ class QuestionRepository
      * @param $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
-    public function byIdWithTopics($id)
+    public function byIdWithTopicsAndAnswers($id)
     {
-        return Question::where('id',$id)->with('topics')->first();
+        return Question::where('id',$id)->with(['topics','answers'])->first();
     }
 
     public function byId($id)
@@ -36,6 +36,10 @@ class QuestionRepository
         return Question::create($attributes);
     }
 
+    public function getQuestionsFeed()
+    {
+        return Question::published()->latest('updated_at')->with('user')->get();
+    }
     public function normalizeTopic(array $topics)
     {
         return collect($topics)->map(function($topic){
