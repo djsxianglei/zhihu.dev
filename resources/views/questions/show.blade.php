@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $question->title }}
@@ -28,7 +28,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel heading" style="text-align: center;">
+                        <h2>{{ $question->followers_count }}</h2>
+                        <span>关注者</span>
+                    </div>
+                    <div class="panel-body">
+                        <a href="{{ route('questions.follow',['question'=>$question->id]) }}" class="btn btn-default {{ Auth::user()->followed($question->id)?'btn-success':'' }}">
+                            {{ Auth::user()->followed($question->id)?'已关注':'关注该问题' }}
+                        </a>
+                        <a href="#editor" class="btn btn-primary">撰写答案</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                        {{ $question->answers->count() }}个答案
@@ -48,7 +62,7 @@
                             </div>
                         @endforeach
                         @if(Auth::check())
-                                <form method="post" action="{{ route('questions.answer',['question'=>$question->id]) }}">
+                                <form method="post" action="{{ route('questions.answer',['question'=>$question->id]) }}" id="editor">
                                     <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
                                         <!-- 编辑器容器 -->
                                         <script id="body" name="body" type="text/plain">{!! old('body') !!}</script>

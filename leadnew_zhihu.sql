@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-12-11 23:08:39
+Date: 2017-12-12 23:00:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,7 +50,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of migrations
@@ -61,6 +61,7 @@ INSERT INTO `migrations` VALUES ('3', '2017_11_15_215137_create_questions_table'
 INSERT INTO `migrations` VALUES ('4', '2017_12_05_210208_create_topics_table', '3');
 INSERT INTO `migrations` VALUES ('5', '2017_12_05_211142_cerate_question_topic_table', '3');
 INSERT INTO `migrations` VALUES ('6', '2017_12_11_212750_create_answers_table', '4');
+INSERT INTO `migrations` VALUES ('7', '2017_12_12_220239_create_user_question_table', '5');
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -161,6 +162,26 @@ INSERT INTO `topics` VALUES ('10', 'autem', 'Quia neque temporibus in omnis dolo
 INSERT INTO `topics` VALUES ('11', 'quia', 'Laborum et voluptatem libero enim possimus. Et amet voluptatibus rem est omnis laboriosam est. Et enim totam sed beatae voluptatem dolor eos magnam. Aliquid nobis dicta ipsum repellendus praesentium.', '1', '1', '2017-12-07 23:15:47', '2017-12-07 23:15:47');
 INSERT INTO `topics` VALUES ('14', '路由', null, '1', '0', '2017-12-08 23:28:37', '2017-12-08 23:28:37');
 INSERT INTO `topics` VALUES ('15', '控制器', null, '1', '0', '2017-12-08 23:35:43', '2017-12-08 23:35:43');
+
+-- ----------------------------
+-- Table structure for user_question
+-- ----------------------------
+DROP TABLE IF EXISTS `user_question`;
+CREATE TABLE `user_question` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `question_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_question_user_id_index` (`user_id`),
+  KEY `user_question_question_id_index` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of user_question
+-- ----------------------------
+INSERT INTO `user_question` VALUES ('5', '2', '5', '2017-12-12 22:35:49', '2017-12-12 22:35:49');
 
 -- ----------------------------
 -- Table structure for users
