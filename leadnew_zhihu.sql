@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-12-12 23:00:39
+Date: 2017-12-14 23:36:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -128,7 +128,7 @@ CREATE TABLE `questions` (
 INSERT INTO `questions` VALUES ('1', '编辑新闻分类', '<p>23123<br/></p>', '2', '0', '1', '0', 'F', 'F', '2017-11-15 23:00:02', '2017-11-15 23:00:02');
 INSERT INTO `questions` VALUES ('2', 'fsadfsdfs', '<p><img src=\"http://zhihu.dev/storage/uploads/image/2017/11/19/6dfae83f56b74dc0842b42a9c6e67a56.jpg\" title=\"/uploads/image/2017/11/19/6dfae83f56b74dc0842b42a9c6e67a56.jpg\" alt=\"11.jpg\"/></p><p>sdfsfsdf</p>', '2', '0', '1', '0', 'F', 'F', '2017-11-19 23:28:18', '2017-11-19 23:28:18');
 INSERT INTO `questions` VALUES ('3', '风景图片风景图片风景图片', '<p>434234<img src=\"http://zhihu.dev/storage/uploads/image/2017/11/20/d7a5697821e8f6b4157c06145ec0f495.jpg\" title=\"/uploads/image/2017/11/20/d7a5697821e8f6b4157c06145ec0f495.jpg\" alt=\"u=1035436093,3470577695&amp;fm=27&amp;gp=0.jpg\"/></p>', '2', '0', '1', '0', 'F', 'F', '2017-11-20 00:03:41', '2017-11-20 00:03:41');
-INSERT INTO `questions` VALUES ('5', '国家税务总局机关党委关于学习宣传贯彻党的十八届五中全', '<p style=\"text-align: center;\"><img src=\"http://zhihu.dev/storage/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" title=\"/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" alt=\"timg.jpg\"/></p>', '2', '2', '1', '0', 'F', 'F', '2017-11-20 00:07:28', '2017-12-11 22:45:51');
+INSERT INTO `questions` VALUES ('5', '国家税务总局机关党委关于学习宣传贯彻党的十八届五中全', '<p style=\"text-align: center;\"><img src=\"http://zhihu.dev/storage/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" title=\"/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" alt=\"timg.jpg\"/></p>', '2', '2', '2', '0', 'F', 'F', '2017-11-20 00:07:28', '2017-12-14 23:35:05');
 INSERT INTO `questions` VALUES ('7', '地方撒发生发射点发', '<p>dfasdfasdfsadfsdfasfdsfadfasfsadfafasdfa123123</p>', '2', '0', '1', '0', 'F', 'T', '2017-12-09 00:01:10', '2017-12-09 00:23:35');
 
 -- ----------------------------
@@ -176,12 +176,12 @@ CREATE TABLE `user_question` (
   PRIMARY KEY (`id`),
   KEY `user_question_user_id_index` (`user_id`),
   KEY `user_question_question_id_index` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of user_question
 -- ----------------------------
-INSERT INTO `user_question` VALUES ('5', '2', '5', '2017-12-12 22:35:49', '2017-12-12 22:35:49');
+INSERT INTO `user_question` VALUES ('17', '2', '5', '2017-12-14 23:35:05', '2017-12-14 23:35:05');
 
 -- ----------------------------
 -- Table structure for users
@@ -204,6 +204,7 @@ CREATE TABLE `users` (
   `is_active` smallint(6) NOT NULL DEFAULT '0',
   `confirmation_token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `api_token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -214,4 +215,4 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('2', 'djs', '1819661095@qq.com', '$2y$10$YRWOR0dCYyaJHaEUl9x/z.EAJSScbLEF/FLTTL4NIBm9ctEps542.', '/images/avatars/default.jpg', '0', '0', '0', '0', '0', '0', '0', null, '1', 'PG42AXYJWwKcApXvdiKC4z0ILiOV8PHIOoISGITk', 'FTdp2foiy3ya0QG50f6ebWGMFLrNu0VpkGko9Z0pPVt23tu4D3mGiGNEx8Xd', '2017-09-09 11:30:12', '2017-09-10 12:49:31');
+INSERT INTO `users` VALUES ('2', 'djs', '1819661095@qq.com', '$2y$10$YRWOR0dCYyaJHaEUl9x/z.EAJSScbLEF/FLTTL4NIBm9ctEps542.', '/images/avatars/default.jpg', '0', '0', '0', '0', '0', '0', '0', null, '1', 'PG42AXYJWwKcApXvdiKC4z0ILiOV8PHIOoISGITk', 'RXNdpFb4puk8S0apkPzYY2Q8H5ZNS4bVDkKl5WO8P7zh43UhFCVXBxi3arMr', 'M05sXHjjbrDAqgHfel2MD5Z7eCRgKXZAdfrIdCGjVauaQEDj0n7hVIOm4j0y', '2017-09-09 11:30:12', '2017-09-10 12:49:31');

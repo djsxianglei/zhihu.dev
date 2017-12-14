@@ -36,6 +36,12 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+let apiToken = document.head.querySelector('meta[name="api-token"]');
+if(apiToken){
+    window.axios.defaults.headers.common['Authorization'] = apiToken.content;
+}else {
+    console.error('api token not found');
+}
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
