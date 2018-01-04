@@ -18,4 +18,9 @@ class AnswerRepository
     {
         return Answer::create($attributes);
     }
+
+    public function byTd($id)
+    {
+        return Answer::find($id);
+    }
 }

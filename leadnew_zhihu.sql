@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-12-14 23:36:24
+Date: 2018-01-04 22:51:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,8 +38,28 @@ CREATE TABLE `answers` (
 -- ----------------------------
 -- Records of answers
 -- ----------------------------
-INSERT INTO `answers` VALUES ('1', '2', '5', '<p>342343423523452</p>', '0', '0', 'F', 'F', '2017-12-11 22:36:13', '2017-12-11 22:36:13');
-INSERT INTO `answers` VALUES ('2', '2', '5', '<p>就是雷锋精神多了附件是浪费大家<br/></p>', '0', '0', 'F', 'F', '2017-12-11 22:45:51', '2017-12-11 22:45:51');
+INSERT INTO `answers` VALUES ('1', '2', '5', '<p>342343423523452</p>', '0', '0', 'F', 'F', '2017-12-11 22:36:13', '2018-01-04 22:50:55');
+INSERT INTO `answers` VALUES ('2', '2', '5', '<p>就是雷锋精神多了附件是浪费大家<br/></p>', '1', '0', 'F', 'F', '2017-12-11 22:45:51', '2018-01-04 22:50:51');
+
+-- ----------------------------
+-- Table structure for followers
+-- ----------------------------
+DROP TABLE IF EXISTS `followers`;
+CREATE TABLE `followers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `follower_id` int(10) unsigned NOT NULL,
+  `followed_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `followers_follower_id_index` (`follower_id`),
+  KEY `followers_followed_id_index` (`followed_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of followers
+-- ----------------------------
+INSERT INTO `followers` VALUES ('16', '2', '3', '2018-01-03 23:23:02', '2018-01-03 23:23:02');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -50,7 +70,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of migrations
@@ -62,6 +82,39 @@ INSERT INTO `migrations` VALUES ('4', '2017_12_05_210208_create_topics_table', '
 INSERT INTO `migrations` VALUES ('5', '2017_12_05_211142_cerate_question_topic_table', '3');
 INSERT INTO `migrations` VALUES ('6', '2017_12_11_212750_create_answers_table', '4');
 INSERT INTO `migrations` VALUES ('7', '2017_12_12_220239_create_user_question_table', '5');
+INSERT INTO `migrations` VALUES ('9', '2017_12_22_225854_create_followers_table', '6');
+INSERT INTO `migrations` VALUES ('10', '2018_01_02_232538_create_notifications_table', '7');
+INSERT INTO `migrations` VALUES ('11', '2018_01_04_221707_create_votes_table', '8');
+
+-- ----------------------------
+-- Table structure for notifications
+-- ----------------------------
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE `notifications` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_id` int(10) unsigned NOT NULL,
+  `notifiable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notifications_notifiable_id_notifiable_type_index` (`notifiable_id`,`notifiable_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of notifications
+-- ----------------------------
+INSERT INTO `notifications` VALUES ('03adb0a9-d4e7-4af2-80fd-73dc291685e7', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 22:59:59', '2018-01-03 22:59:59');
+INSERT INTO `notifications` VALUES ('1117d934-0f9b-46ba-b7db-3c281534b52b', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 22:58:32', '2018-01-03 22:58:32');
+INSERT INTO `notifications` VALUES ('37536b1c-8931-4cbb-aec2-bf722b582370', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 22:57:28', '2018-01-03 22:57:28');
+INSERT INTO `notifications` VALUES ('82d06f65-7d0e-41e7-82c6-891aa71f084a', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 23:06:19', '2018-01-03 23:06:19');
+INSERT INTO `notifications` VALUES ('8c95dceb-d176-4337-b4f1-c46562329099', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 23:23:02', '2018-01-03 23:23:02');
+INSERT INTO `notifications` VALUES ('b5b7c156-a6ab-4058-a1aa-2494cd098bc1', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 23:08:31', '2018-01-03 23:08:31');
+INSERT INTO `notifications` VALUES ('d4fd935d-a171-4e5e-ab0f-05d6fcbcf838', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 23:02:46', '2018-01-03 23:02:46');
+INSERT INTO `notifications` VALUES ('d9652837-039b-4b08-bb4e-5d87bde0893e', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-03 23:01:24', '2018-01-03 23:01:24');
+INSERT INTO `notifications` VALUES ('d97994ff-c74f-4417-98d6-1d64675b3bc2', 'App\\Notifications\\NewUserFollowNotification', '3', 'App\\Models\\User', '{\"name\":\"djs\"}', null, '2018-01-02 23:35:19', '2018-01-02 23:35:19');
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -128,7 +181,7 @@ CREATE TABLE `questions` (
 INSERT INTO `questions` VALUES ('1', '编辑新闻分类', '<p>23123<br/></p>', '2', '0', '1', '0', 'F', 'F', '2017-11-15 23:00:02', '2017-11-15 23:00:02');
 INSERT INTO `questions` VALUES ('2', 'fsadfsdfs', '<p><img src=\"http://zhihu.dev/storage/uploads/image/2017/11/19/6dfae83f56b74dc0842b42a9c6e67a56.jpg\" title=\"/uploads/image/2017/11/19/6dfae83f56b74dc0842b42a9c6e67a56.jpg\" alt=\"11.jpg\"/></p><p>sdfsfsdf</p>', '2', '0', '1', '0', 'F', 'F', '2017-11-19 23:28:18', '2017-11-19 23:28:18');
 INSERT INTO `questions` VALUES ('3', '风景图片风景图片风景图片', '<p>434234<img src=\"http://zhihu.dev/storage/uploads/image/2017/11/20/d7a5697821e8f6b4157c06145ec0f495.jpg\" title=\"/uploads/image/2017/11/20/d7a5697821e8f6b4157c06145ec0f495.jpg\" alt=\"u=1035436093,3470577695&amp;fm=27&amp;gp=0.jpg\"/></p>', '2', '0', '1', '0', 'F', 'F', '2017-11-20 00:03:41', '2017-11-20 00:03:41');
-INSERT INTO `questions` VALUES ('5', '国家税务总局机关党委关于学习宣传贯彻党的十八届五中全', '<p style=\"text-align: center;\"><img src=\"http://zhihu.dev/storage/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" title=\"/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" alt=\"timg.jpg\"/></p>', '2', '2', '2', '0', 'F', 'F', '2017-11-20 00:07:28', '2017-12-14 23:35:05');
+INSERT INTO `questions` VALUES ('5', '国家税务总局机关党委关于学习宣传贯彻党的十八届五中全', '<p style=\"text-align: center;\"><img src=\"http://zhihu.dev/storage/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" title=\"/uploads/image/2017/11/20/c331e9e654ec9c96c4fbb33e756bf593.jpg\" alt=\"timg.jpg\"/></p>', '3', '2', '2', '0', 'F', 'F', '2017-11-20 00:07:28', '2017-12-22 22:43:42');
 INSERT INTO `questions` VALUES ('7', '地方撒发生发射点发', '<p>dfasdfasdfsadfsdfasfdsfadfasfsadfafasdfa123123</p>', '2', '0', '1', '0', 'F', 'T', '2017-12-09 00:01:10', '2017-12-09 00:23:35');
 
 -- ----------------------------
@@ -176,12 +229,12 @@ CREATE TABLE `user_question` (
   PRIMARY KEY (`id`),
   KEY `user_question_user_id_index` (`user_id`),
   KEY `user_question_question_id_index` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of user_question
 -- ----------------------------
-INSERT INTO `user_question` VALUES ('17', '2', '5', '2017-12-14 23:35:05', '2017-12-14 23:35:05');
+INSERT INTO `user_question` VALUES ('18', '2', '5', '2017-12-22 22:43:42', '2017-12-22 22:43:42');
 
 -- ----------------------------
 -- Table structure for users
@@ -210,9 +263,30 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_name_unique` (`name`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('2', 'djs', '1819661095@qq.com', '$2y$10$YRWOR0dCYyaJHaEUl9x/z.EAJSScbLEF/FLTTL4NIBm9ctEps542.', '/images/avatars/default.jpg', '0', '0', '0', '0', '0', '0', '0', null, '1', 'PG42AXYJWwKcApXvdiKC4z0ILiOV8PHIOoISGITk', 'RXNdpFb4puk8S0apkPzYY2Q8H5ZNS4bVDkKl5WO8P7zh43UhFCVXBxi3arMr', 'M05sXHjjbrDAqgHfel2MD5Z7eCRgKXZAdfrIdCGjVauaQEDj0n7hVIOm4j0y', '2017-09-09 11:30:12', '2017-09-10 12:49:31');
+INSERT INTO `users` VALUES ('2', 'djs', '1819661095@qq.com', '$2y$10$YRWOR0dCYyaJHaEUl9x/z.EAJSScbLEF/FLTTL4NIBm9ctEps542.', '/images/avatars/default.jpg', '0', '0', '0', '0', '0', '0', '0', null, '1', 'PG42AXYJWwKcApXvdiKC4z0ILiOV8PHIOoISGITk', 'IH0mARWDjt4rZuPaaqtahDP0rp7r1dxHbHkUU7NSHpxOCaBnybUWHuChSMNH', 'M05sXHjjbrDAqgHfel2MD5Z7eCRgKXZAdfrIdCGjVauaQEDj0n7hVIOm4j0y', '2017-09-09 11:30:12', '2017-09-10 12:49:31');
+INSERT INTO `users` VALUES ('3', 'shushu', '3235897628@qq.com', '$2y$10$YRWOR0dCYyaJHaEUl9x/z.EAJSScbLEF/FLTTL4NIBm9ctEps542.', '/images/avatars/default.jpg', '0', '0', '0', '0', '0', '1', '0', null, '1', 'PG42AXYJWwKcApXvdiKC4z0ILiO3423HIOoISGITk', 'RXNdpFb4puk8S0apkPzYY2Q8H5ZNS4bVDkKl5WO8P7zh43U445VXBxi3arMr', 'M05sXHjjbrDAqgHfel2MD5Z7eCRgKXZAdfrIdCGjVauaQEDj0n75433IOm4j0y', null, '2018-01-03 23:23:03');
+
+-- ----------------------------
+-- Table structure for votes
+-- ----------------------------
+DROP TABLE IF EXISTS `votes`;
+CREATE TABLE `votes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `answer_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `votes_user_id_index` (`user_id`),
+  KEY `votes_answer_id_index` (`answer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of votes
+-- ----------------------------
+INSERT INTO `votes` VALUES ('2', '2', '2', '2018-01-04 22:50:51', '2018-01-04 22:50:51');
